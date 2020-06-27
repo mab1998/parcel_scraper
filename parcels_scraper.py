@@ -240,10 +240,18 @@ DataFrame=pd.DataFrame()
 #DataFrame = pd.read_excel("./Tax Delinquent 2016.xlsx", sheetname=0)
 
 i=3240
+i=3761
 #        writer.writerow(header)
 
 len_parcel=len(Parcels_input) 
 driver=get_proxy_driver()
+
+import requests
+import json
+
+parcel=Parcels_input[i]
+url=get_url(parcel)
+driver.get(url)
 
 while i<len_parcel:
     try:
@@ -258,15 +266,50 @@ while i<len_parcel:
             
             # driver.get("http://myplace.cuyahogacounty.us/")
             parcel=Parcels_input[i]
-            url=get_url(parcel)
-            driver.get(url)
-            driver.current_url
+            # url=get_url(parcel)
+            # driver.get(url)
+            # driver.current_url
+            
+            
             # find_by_id("Parcel").click()
             # stat=True            
     #		driver=get_proxy_driver(useproxy, proxy)
     #		driver.get("http://myplace.cuyahogacounty.us/")	
+            cookies=driver.get_cookies()
+            f = open("cookies", "w")
+            f.write(json.dumps(cookies))
+            f.close()
+            
+            # r = open("cookies", "r")
+            # cs=r.read()
+            # d = json.loads(cs)
+            # cs= cs.replace("[","").replace("]","")
+            
+            
+            
+            s = requests.Session()
+            for cookie in cookies:
+                s.cookies.set(cookie['name'], cookie['value'])
+                
+            url = "https://myplace.cuyahogacounty.us/MainPage/LegacyTaxes"
+
+            payload = 'hdnTaxesParcelId='+str(parcel.replace("-",""))+'&hdnTaxesListId=&hdnTaxesButtonClicked=Tax+Bill&hdnTaxesSearchChoice=Parcel&hdnTaxesSearchText='+str(parcel)+'&hdnTaxesSearchCity=99&hdnTaxYear=2019'
+            headers = {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            
+            response = s.request("POST", url, headers=headers, data = payload)
+            
+            print("========================"+str(i))
+            
+            path="./txt/demo"+str(i)+".html"
+            f = open(path, "w")
+            f.write(str(response.text.encode('utf8')))
+            f.close()
+            
+            
             parcel=Parcels_input[i]
-            DataFrame=get_info_parcels(driver,parcel,DataFrame,i)
+            # DataFrame=get_info_parcels(driver,parcel,DataFrame,i)
             i=i+1
     except Exception as e:
         try:
