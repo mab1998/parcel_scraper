@@ -19,7 +19,10 @@ import time
 import requests
 import random
 import base64
+import numpy as np 
 
+
+Parcels_input=np.loadtxt('./input_parcel.csv',delimiter="\n",dtype=str)
 
 
 
