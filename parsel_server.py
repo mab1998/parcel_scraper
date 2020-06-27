@@ -34,6 +34,7 @@ len_parcel=len(Parcels_input)
 
 while i<len_parcel:
     try:
+            parcel=Parcels_input[i]
 
             r = open("cookies", "r")
             cs=r.read()
