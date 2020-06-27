@@ -1,0 +1,12 @@
+1) download the project from this link
+https://drive.google.com/file/d/1ePDReP_GueMrlV-kksYoH_e7unIFvXvp/view?usp=sharing
+2)install chrome browser
+
+3)install python 3.6 and add these library click on install.bat 
+4)run scan_proxies.bat to get new free proxy 
+ 
+5)run the secript: scraper.bat
+  
+6)the output in format Excel  "Tax Delinquent 2016.xlsx"
+
+

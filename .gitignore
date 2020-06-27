@@ -1,0 +1,8 @@
+chrome-data/*
+Driver/*
+*.csv
+*.xlsx
+*.zip
+*.exe
+*.jpg
+*.log
