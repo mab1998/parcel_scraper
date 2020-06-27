@@ -66,12 +66,7 @@ while i<len_parcel:
             # DataFrame=get_info_parcels(driver,parcel,DataFrame,i)
             i=i+1
     except Exception as e:
-        try:
-                driver.quit()
-        except:
-                pass
-   
-        driver=get_proxy_driver()
+
         print(i,' ',e)
         i=i
 
