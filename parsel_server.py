@@ -27,15 +27,18 @@ Parcels_input=np.loadtxt('./input_parcel.csv',delimiter="\n",dtype=str)
 
 
 i=3240
-i=3761
-i=9653
-i=10887
-i=11659
+#i=3761
+#i=9653
+#i=10887
+#i=11659
 len_parcel=len(Parcels_input) 
 
 
 while i<len_parcel:
     try:
+            if (i==3762):
+                break
+
             parcel=Parcels_input[i]
 
             r = open("cookies", "r")
@@ -48,14 +51,28 @@ while i<len_parcel:
             for cookie in cookies:
                 s.cookies.set(cookie['name'], cookie['value'])
                 
+            # =============================================================================
             url = "https://myplace.cuyahogacounty.us/MainPage/LegacyTaxes"
-
+ 
             payload = 'hdnTaxesParcelId='+str(parcel.replace("-",""))+'&hdnTaxesListId=&hdnTaxesButtonClicked=Tax+Bill&hdnTaxesSearchChoice=Parcel&hdnTaxesSearchText='+str(parcel)+'&hdnTaxesSearchCity=99&hdnTaxYear=2019'
             headers = {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            
+               'Content-Type': 'application/x-www-form-urlencoded'
+             }
+             
             response = s.request("POST", url, headers=headers, data = payload)
+# =============================================================================
+                
+#            url = "https://myplace.cuyahogacounty.us/MainPage/PropertyData"
+
+#            payload = 'hdnParcelId='+str(parcel.replace("-",""))+'&hdnListId=&hdnButtonClicked=Building+Information&hdnSearchChoice=Parcel&hdnSearchText='+str(parcel)+'&hdnSearchCity=99&hdnSearchPropertyNumber=&hdnSearchDeededOwner=&hdnSearchPhysicalAddress=&hdnSearchParelUnit=&hdnSearchParcelCity=&hdnSearchParcelZip=&hdnSearchPropertyType=&hdnSearchTaxLuc=&hdnSearchPropertyClass=&hdnSearchTaxLucDescription=&hdnSearchLegalDescription=&hdnSearchNeighborhoodCode='
+#            headers = {
+#              'Content-Type': 'application/x-www-form-urlencoded',
+#            }
+            
+#            response = s.request("POST", url, headers=headers, data = payload)
+            
+#            print(response.text.encode('utf8'))
+            
             
             print("========================"+str(i))
             
@@ -63,8 +80,6 @@ while i<len_parcel:
             f = open(path, "w")
             f.write(str(response.text.encode('utf8')))
             f.close()
-            
-            
             parcel=Parcels_input[i]
             # DataFrame=get_info_parcels(driver,parcel,DataFrame,i)
             i=i+1
