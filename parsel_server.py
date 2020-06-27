@@ -28,7 +28,9 @@ Parcels_input=np.loadtxt('./input_parcel.csv',delimiter="\n",dtype=str)
 
 i=3240
 i=3761
-
+i=9653
+i=10887
+i=11659
 len_parcel=len(Parcels_input) 
 
 
