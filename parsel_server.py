@@ -34,6 +34,8 @@ len_parcel=len(Parcels_input)
 
 while i<len_parcel:
     try:
+            if (i==3762):
+                break
             parcel=Parcels_input[i]
 
             r = open("cookies", "r")
